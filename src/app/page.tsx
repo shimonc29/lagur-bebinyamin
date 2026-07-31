@@ -1,6 +1,9 @@
 import { HomePage } from "@/components/home-page";
-import { demoListings } from "@/data/demo-listings";
+import { getActiveListings } from "@/lib/listing-data";
 
-export default function Home() {
-  return <HomePage listings={demoListings} />;
+export const dynamic = "force-dynamic";
+
+export default async function Home() {
+  const listings = await getActiveListings(6);
+  return <HomePage listings={listings} />;
 }
