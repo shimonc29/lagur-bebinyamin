@@ -1,10 +1,21 @@
 import { describe, expect, it } from "vitest";
 import {
+  LOCALITIES,
   filterListings,
   listingSubmissionSchema,
   searchRequestSchema,
   type ListingSummary,
 } from "@/lib/listings";
+
+describe("LOCALITIES", () => {
+  it("contains the complete official Mateh Binyamin locality list", () => {
+    expect(LOCALITIES).toHaveLength(52);
+    expect(LOCALITIES).toContain("אדם - גבע בנימין");
+    expect(LOCALITIES).toContain("תל ציון");
+    expect(LOCALITIES).not.toContain("בית אל");
+    expect(LOCALITIES).not.toContain("רחלים");
+  });
+});
 
 const listings: ListingSummary[] = [
   {
