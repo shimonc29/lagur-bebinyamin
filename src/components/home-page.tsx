@@ -25,7 +25,7 @@ export function HomePage({ listings }: { listings: ListingSummary[] }) {
             <div className="hero-panel">
               <div className="panel-orbit orbit-one" /><div className="panel-orbit orbit-two" />
               <div className="panel-house" aria-hidden="true">⌂</div>
-              <p>שילה · עפרה · עלי · רחלים · בית אל והסביבה</p>
+              <p>שילה · עפרה · עלי · טלמון · כפר אדומים וכל יישובי המועצה</p>
             </div>
           </div>
         </section>
