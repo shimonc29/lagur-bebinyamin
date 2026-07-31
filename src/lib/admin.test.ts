@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { isAdminKeyValid, moderationSchema } from "@/lib/admin";
+import { adminDeleteSchema, adminUpdateSchema, isAdminKeyValid } from "@/lib/admin";
 
 describe("isAdminKeyValid", () => {
   it("accepts an exact configured key and rejects empty input", () => {
@@ -8,9 +8,12 @@ describe("isAdminKeyValid", () => {
   });
 });
 
-describe("moderationSchema", () => {
-  it("allows only supported moderation transitions", () => {
-    expect(moderationSchema.safeParse({ id: crypto.randomUUID(), status: "active" }).success).toBe(true);
-    expect(moderationSchema.safeParse({ id: crypto.randomUUID(), status: "deleted" }).success).toBe(false);
+describe("admin schemas", () => {
+  it("validates listing moderation and alert activation", () => {
+    const id = crypto.randomUUID();
+    expect(adminUpdateSchema.safeParse({ target: "listing", id, status: "active" }).success).toBe(true);
+    expect(adminUpdateSchema.safeParse({ target: "search_request", id, active: false }).success).toBe(true);
+    expect(adminUpdateSchema.safeParse({ target: "listing", id, status: "deleted" }).success).toBe(false);
+    expect(adminDeleteSchema.safeParse({ target: "listing", id }).success).toBe(true);
   });
 });
