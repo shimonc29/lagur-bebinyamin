@@ -55,7 +55,6 @@ export function HomePage({ listings }: { listings: ListingSummary[] }) {
           </div>
         </section>
       </main>
-      <footer><div className="container footer-row"><strong>לגור בבנימין</strong><span>פיילוט שכירויות מקומי · 2026</span></div></footer>
     </>
   );
 }
