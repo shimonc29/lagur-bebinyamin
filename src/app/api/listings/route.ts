@@ -5,6 +5,11 @@ import { createSupabaseAdmin } from "@/lib/supabase-admin";
 
 export async function POST(request: Request) {
   const form = await request.formData();
+  const images = form.getAll("images").filter((value): value is File => value instanceof File && value.size > 0);
+  const allowedImageTypes = new Set(["image/jpeg", "image/png", "image/webp"]);
+  if (images.length > 4 || images.some((image) => image.size > 5 * 1024 * 1024 || !allowedImageTypes.has(image.type))) {
+    return Response.json({ error: "invalid_images" }, { status: 400 });
+  }
   const parsed = listingSubmissionSchema.safeParse({
     title: form.get("title"), locality: form.get("locality"), propertyType: form.get("propertyType"),
     rooms: form.get("rooms"), price: form.get("price"), builtArea: form.get("builtArea"),
@@ -28,6 +33,17 @@ export async function POST(request: Request) {
       consent_at: new Date().toISOString(), management_token_hash: managementTokenHash,
     }).select("id").single();
     if (error) throw error;
+
+    for (const [position, image] of images.entries()) {
+      const extension = image.type === "image/png" ? "png" : image.type === "image/webp" ? "webp" : "jpg";
+      const storagePath = `${data.id}/${crypto.randomUUID()}.${extension}`;
+      const { error: uploadError } = await supabase.storage.from("listing-images")
+        .upload(storagePath, image, { contentType: image.type, upsert: false });
+      if (uploadError) throw uploadError;
+      const { error: imageRowError } = await supabase.from("listing_images")
+        .insert({ listing_id: data.id, storage_path: storagePath, position });
+      if (imageRowError) throw imageRowError;
+    }
     await notifyAboutListing({ ...parsed.data, id: data.id });
     return Response.json({ id: data.id, managementToken }, { status: 201 });
   } catch {
