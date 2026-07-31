@@ -115,6 +115,11 @@ legend { margin-bottom:10px; font-weight:900; }
 .admin-details dd { overflow-wrap:anywhere; margin:2px 0 0; font-weight:700; }
 .admin-actions { flex-wrap:wrap; }
 .admin-actions .danger { color:#8c2d2d; border-color:#e8baba; }
-@media (max-width:900px) { nav>a:not(.nav-cta){display:none}.hero-grid,.split-cta{grid-template-columns:1fr}.hero-panel{min-height:300px}.listing-grid{grid-template-columns:1fr 1fr} }
+.article-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.article-card { padding:26px; border:1px solid var(--line); border-radius:22px; background:#fff; box-shadow:0 14px 45px rgba(24,61,47,.07); }
+.article-card h2 { font-size:25px; }
+.article-content { font-size:18px; line-height:1.9; }
+.article-editor { margin:18px 0 28px; }
+@media (max-width:900px) { nav>a:not(.nav-cta){display:none}.hero-grid,.split-cta{grid-template-columns:1fr}.hero-panel{min-height:300px}.listing-grid,.article-grid{grid-template-columns:1fr 1fr} }
 @media (max-width:900px) { .detail-grid{grid-template-columns:1fr}.detail-visual,.detail-gallery-empty{min-height:360px} }
-@media (max-width:620px) { .hero{padding-top:52px}h1{font-size:46px}.hero-panel{min-height:260px}.listing-grid,.form-grid,.admin-login,.admin-summary,.admin-details{grid-template-columns:1fr}.field-wide{grid-column:auto}.section{padding:64px 0}.section-heading{align-items:start;flex-direction:column}.split-cta,.form-card{padding:24px}.footer-row{flex-direction:column;gap:5px}.page-shell{padding-top:48px}.detail-visual{min-height:260px}.detail-card{padding:24px}.admin-item{align-items:start;flex-direction:column}.admin-actions{width:100%;flex-wrap:wrap} }
+@media (max-width:620px) { .hero{padding-top:52px}h1{font-size:46px}.hero-panel{min-height:260px}.listing-grid,.article-grid,.form-grid,.admin-login,.admin-summary,.admin-details{grid-template-columns:1fr}.field-wide{grid-column:auto}.section{padding:64px 0}.section-heading{align-items:start;flex-direction:column}.split-cta,.form-card{padding:24px}.footer-row{flex-direction:column;gap:5px}.page-shell{padding-top:48px}.detail-visual{min-height:260px}.detail-card{padding:24px}.admin-item{align-items:start;flex-direction:column}.admin-actions{width:100%;flex-wrap:wrap} }
