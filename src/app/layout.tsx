@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 const siteUrl = "https://lagur-bebinyamin.vercel.app";
@@ -28,5 +29,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="he" dir="rtl"><body>{children}<Analytics /></body></html>;
+  return <html lang="he" dir="rtl"><body>{children}<SiteFooter /><Analytics /></body></html>;
 }
