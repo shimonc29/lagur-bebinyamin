@@ -81,6 +81,7 @@ export type ListingSummary = {
   availableFrom: string;
   status: ListingStatus;
   featured: boolean;
+  imageUrl?: string;
 };
 
 export type ListingFilters = {
