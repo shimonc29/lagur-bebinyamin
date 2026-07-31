@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       consent_at: new Date().toISOString(), management_token_hash: managementTokenHash,
     }).select("id").single();
     if (error) throw error;
-    await notifyAboutListing(parsed.data);
+    await notifyAboutListing({ ...parsed.data, id: data.id });
     return Response.json({ id: data.id, managementToken }, { status: 201 });
   } catch {
     return Response.json({ error: "service_unavailable" }, { status: 503 });
