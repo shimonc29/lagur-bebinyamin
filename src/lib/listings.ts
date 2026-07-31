@@ -1,0 +1,91 @@
+import { z } from "zod";
+
+export const LOCALITIES = [
+  "עלי",
+  "שילה",
+  "עפרה",
+  "בית אל",
+  "מעלה לבונה",
+  "רחלים",
+  "שבות רחל",
+] as const;
+
+export const PROPERTY_TYPES = [
+  "apartment",
+  "garden_apartment",
+  "house",
+  "unit",
+] as const;
+
+export type ListingStatus =
+  | "pending"
+  | "active"
+  | "rejected"
+  | "expired"
+  | "removed";
+
+export type ListingSummary = {
+  id: string;
+  slug: string;
+  title: string;
+  locality: string;
+  propertyType: (typeof PROPERTY_TYPES)[number];
+  rooms: number;
+  price: number;
+  builtArea: number;
+  availableFrom: string;
+  status: ListingStatus;
+  featured: boolean;
+};
+
+export type ListingFilters = {
+  locality?: string;
+  propertyType?: ListingSummary["propertyType"];
+  minRooms?: number;
+  maxPrice?: number;
+};
+
+const israeliPhone = /^(?:\+972|0)(?:[23489]|5[0-9]|7[2-9])[-\s]?\d{3}[-\s]?\d{4}$/;
+
+export const listingSubmissionSchema = z.object({
+  title: z.string().trim().min(8).max(90),
+  locality: z.enum(LOCALITIES),
+  propertyType: z.enum(PROPERTY_TYPES),
+  rooms: z.coerce.number().min(1).max(15),
+  price: z.coerce.number().int().min(500).max(50_000),
+  builtArea: z.coerce.number().int().min(10).max(2_000),
+  availableFrom: z.iso.date(),
+  description: z.string().trim().min(20).max(2_000),
+  contactName: z.string().trim().min(2).max(80),
+  contactPhone: z.string().trim().regex(israeliPhone),
+  contactEmail: z.email(),
+  consent: z.literal(true),
+});
+
+export const searchRequestSchema = z.object({
+  localities: z.array(z.enum(LOCALITIES)).min(1),
+  minRooms: z.coerce.number().min(1).max(15),
+  maxPrice: z.coerce.number().int().min(500).max(50_000),
+  name: z.string().trim().min(2).max(80),
+  phone: z.string().trim().regex(israeliPhone),
+  consent: z.literal(true),
+});
+
+export function filterListings(
+  listings: ListingSummary[],
+  filters: ListingFilters,
+): ListingSummary[] {
+  return listings.filter((listing) => {
+    if (listing.status !== "active") return false;
+    if (filters.locality && listing.locality !== filters.locality) return false;
+    if (
+      filters.propertyType &&
+      listing.propertyType !== filters.propertyType
+    ) {
+      return false;
+    }
+    if (filters.minRooms && listing.rooms < filters.minRooms) return false;
+    if (filters.maxPrice && listing.price > filters.maxPrice) return false;
+    return true;
+  });
+}
