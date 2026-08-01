@@ -40,8 +40,8 @@ export function PublishForm() {
         <label className="field">סוג הנכס<select name="propertyType" required defaultValue="apartment">{PROPERTY_TYPES.map((type) => <option key={type} value={type}>{propertyLabels[type]}</option>)}</select></label>
         <label className="field">מספר חדרים<input name="rooms" type="number" required min="1" max="15" step="0.5" /></label>
         <label className="field">שכר דירה חודשי<input name="price" type="number" required min="500" max="50000" inputMode="numeric" /></label>
-        <label className="field">שטח בנוי במ״ר<input name="builtArea" type="number" required min="10" max="2000" /></label>
-        <label className="field">תאריך כניסה<input name="availableFrom" type="date" required /></label>
+        <label className="field">שטח בנוי במ״ר <small>(רשות)</small><input name="builtArea" type="number" min="10" max="2000" /></label>
+        <label className="field">תאריך כניסה <small>(רשות)</small><input name="availableFrom" type="date" /></label>
         <label className="field field-wide">תיאור הנכס<textarea name="description" required minLength={20} rows={5} placeholder="ספרו על הבית, החצר, החניה ומה חשוב לדעת" /></label>
         <label className="field field-wide">תמונות הנכס — עד 4 תמונות
           <input name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple />
@@ -49,7 +49,7 @@ export function PublishForm() {
         </label>
         <label className="field">שם המפרסם<input name="contactName" required minLength={2} autoComplete="name" /></label>
         <label className="field">טלפון<input name="contactPhone" type="tel" required autoComplete="tel" placeholder="050-0000000" /></label>
-        <label className="field field-wide">דוא״ל<input name="contactEmail" type="email" required autoComplete="email" /></label>
+        <label className="field field-wide">דוא״ל <small>(רשות)</small><input name="contactEmail" type="email" autoComplete="email" /></label>
       </div>
       <label className="checkbox"><input name="consent" type="checkbox" value="true" required /> אני מאשר/ת את פרסום פרטי הקשר ואת תנאי השימוש.</label>
       {status === "error" && <p className="form-error">{error}</p>}
