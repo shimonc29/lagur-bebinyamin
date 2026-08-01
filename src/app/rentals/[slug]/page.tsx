@@ -19,7 +19,7 @@ export default async function ListingPage({ params }: { params: Promise<{ slug: 
       <article className="detail-card">
         <p className="eyebrow">{listing.locality} · להשכרה</p><h1 className="detail-title">{listing.title}</h1>
         <p className="detail-price">₪{listing.price.toLocaleString("he-IL")} לחודש</p>
-        <div className="detail-facts"><span>{listing.rooms} חדרים</span><span>{listing.builtArea} מ״ר</span><span>כניסה {new Date(listing.availableFrom).toLocaleDateString("he-IL")}</span></div>
+        <div className="detail-facts"><span>{listing.rooms} חדרים</span>{listing.builtArea && <span>{listing.builtArea} מ״ר</span>}{listing.availableFrom && <span>כניסה {new Date(listing.availableFrom).toLocaleDateString("he-IL")}</span>}</div>
         <p>{listing.description}</p>
         <a className="button button-primary" href={`tel:${listing.contactPhone}`}>יצירת קשר עם {listing.contactName}</a>
       </article>
