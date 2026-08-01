@@ -77,8 +77,8 @@ export type ListingSummary = {
   propertyType: (typeof PROPERTY_TYPES)[number];
   rooms: number;
   price: number;
-  builtArea: number;
-  availableFrom: string;
+  builtArea: number | null;
+  availableFrom: string | null;
   status: ListingStatus;
   featured: boolean;
   imageUrl?: string;
@@ -99,12 +99,12 @@ export const listingSubmissionSchema = z.object({
   propertyType: z.enum(PROPERTY_TYPES),
   rooms: z.coerce.number().min(1).max(15),
   price: z.coerce.number().int().min(500).max(50_000),
-  builtArea: z.coerce.number().int().min(10).max(2_000),
-  availableFrom: z.iso.date(),
+  builtArea: z.preprocess((value) => value === "" || value == null ? undefined : value, z.coerce.number().int().min(10).max(2_000).optional()),
+  availableFrom: z.preprocess((value) => value === "" || value == null ? undefined : value, z.iso.date().optional()),
   description: z.string().trim().min(20).max(2_000),
   contactName: z.string().trim().min(2).max(80),
   contactPhone: z.string().trim().regex(israeliPhone),
-  contactEmail: z.email(),
+  contactEmail: z.preprocess((value) => value === "" || value == null ? undefined : value, z.email().optional()),
   consent: z.literal(true),
 });
 
