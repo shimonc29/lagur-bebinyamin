@@ -14,8 +14,8 @@ export function ListingCard({ listing }: { listing: ListingSummary }) {
         <p className="listing-price">₪{formatter.format(listing.price)}<span> לחודש</span></p>
         <h3><Link href={`/rentals/${listing.slug}`}>{listing.title}</Link></h3>
         <div className="listing-facts">
-          <span>{listing.rooms} חדרים</span><span>{listing.builtArea} מ״ר</span>
-          <span>כניסה {new Date(listing.availableFrom).toLocaleDateString("he-IL")}</span>
+          <span>{listing.rooms} חדרים</span>{listing.builtArea && <span>{listing.builtArea} מ״ר</span>}
+          {listing.availableFrom && <span>כניסה {new Date(listing.availableFrom).toLocaleDateString("he-IL")}</span>}
         </div>
       </div>
     </article>
