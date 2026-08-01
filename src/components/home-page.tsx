@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { ListingSummary } from "@/lib/listings";
 import { ListingCard } from "@/components/listing-card";
 import { SiteHeader } from "@/components/site-header";
@@ -24,7 +23,9 @@ export function HomePage({ listings }: { listings: ListingSummary[] }) {
               </div>
             </div>
             <div className="hero-image">
-              <Image src="/og-image.jpg" width={1200} height={1200} priority alt="נוף הרי בנימין — לגור בבנימין" />
+              {/* The original asset is served directly because the optimized transform renders incorrectly on some clients. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/og-image.jpg?v=2" width="1200" height="1200" fetchPriority="high" alt="נוף הרי בנימין — לגור בבנימין" />
             </div>
           </div>
         </section>
