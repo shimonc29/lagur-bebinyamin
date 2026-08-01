@@ -95,6 +95,25 @@ describe("listingSubmissionSchema", () => {
     expect(result.success).toBe(true);
   });
 
+  it("accepts a listing without area, entry date or email", () => {
+    const result = listingSubmissionSchema.safeParse({
+      title: "יחידת דיור נעימה בשילה",
+      locality: "שילה",
+      propertyType: "unit",
+      rooms: 2,
+      price: 3_200,
+      builtArea: "",
+      availableFrom: "",
+      description: "יחידת דיור מוארת, שקטה ונעימה במיקום מרכזי.",
+      contactName: "ישראל ישראלי",
+      contactPhone: "0501234567",
+      contactEmail: "",
+      consent: true,
+    });
+
+    expect(result.success).toBe(true);
+  });
+
   it("rejects invalid contact details and missing consent", () => {
     const result = listingSubmissionSchema.safeParse({
       title: "דירה",
