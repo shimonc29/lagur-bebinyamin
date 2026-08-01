@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ListingSummary } from "@/lib/listings";
 import { ListingCard } from "@/components/listing-card";
 import { SiteHeader } from "@/components/site-header";
@@ -22,10 +23,8 @@ export function HomePage({ listings }: { listings: ListingSummary[] }) {
                 <span>פרסום ללא הרשמה</span><span>מודעות מאושרות</span><span>פנייה ישירה</span>
               </div>
             </div>
-            <div className="hero-panel">
-              <div className="panel-orbit orbit-one" /><div className="panel-orbit orbit-two" />
-              <div className="panel-house" aria-hidden="true">⌂</div>
-              <p>שילה · עפרה · עלי · טלמון · כפר אדומים וכל יישובי המועצה</p>
+            <div className="hero-image">
+              <Image src="/og-image.jpg" width={1200} height={1200} priority alt="נוף הרי בנימין — לגור בבנימין" />
             </div>
           </div>
         </section>
