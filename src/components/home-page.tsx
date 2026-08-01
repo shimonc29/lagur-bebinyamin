@@ -25,7 +25,7 @@ export function HomePage({ listings }: { listings: ListingSummary[] }) {
             <div className="hero-image">
               {/* The original asset is served directly because the optimized transform renders incorrectly on some clients. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/og-image.jpg?v=2" width="1200" height="1200" fetchPriority="high" alt="נוף הרי בנימין — לגור בבנימין" />
+              <img src="/hero-image.png?v=3" width="1254" height="1254" fetchPriority="high" alt="נוף הרי בנימין — לגור בבנימין" />
             </div>
           </div>
         </section>
