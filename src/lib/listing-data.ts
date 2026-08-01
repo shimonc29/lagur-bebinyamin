@@ -5,7 +5,7 @@ type ListingImageRow = { storage_path: string; position: number };
 type ListingRow = {
   id: string; slug: string; title: string; locality: string;
   property_type: ListingSummary["propertyType"];
-  rooms: number; price: number; built_area: number; available_from: string;
+  rooms: number; price: number; built_area: number | null; available_from: string | null;
   status: ListingSummary["status"]; listing_images?: ListingImageRow[];
 };
 
