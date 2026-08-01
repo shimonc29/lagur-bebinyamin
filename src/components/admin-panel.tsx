@@ -4,9 +4,9 @@ import { useState } from "react";
 
 type AdminListing = {
   id: string; slug: string; title: string; locality: string; property_type: string;
-  rooms: number; price: number; built_area: number; available_from: string;
+  rooms: number; price: number; built_area: number | null; available_from: string | null;
   description: string; status: string; created_at: string; approved_at: string | null;
-  contact_name: string; contact_phone: string; contact_email: string;
+  contact_name: string; contact_phone: string; contact_email: string | null;
 };
 
 type AdminAlert = {
@@ -170,13 +170,13 @@ export function AdminPanel() {
             <div className="admin-item-main">
               <span className={`status status-${listing.status}`}>{statusLabels[listing.status] ?? listing.status}</span>
               <h2>{listing.title}</h2>
-              <p>{listing.locality} · {listing.rooms} חדרים · {listing.built_area} מ״ר · ₪{listing.price.toLocaleString("he-IL")}</p>
+              <p>{listing.locality} · {listing.rooms} חדרים{listing.built_area ? ` · ${listing.built_area} מ״ר` : ""} · ₪{listing.price.toLocaleString("he-IL")}</p>
               <p>{listing.description}</p>
               <dl className="admin-details">
                 <div><dt>שם המפרסם</dt><dd>{listing.contact_name}</dd></div>
                 <div><dt>טלפון</dt><dd><a href={`tel:${listing.contact_phone}`}>{listing.contact_phone}</a></dd></div>
-                <div><dt>אימייל</dt><dd><a href={`mailto:${listing.contact_email}`}>{listing.contact_email}</a></dd></div>
-                <div><dt>כניסה לנכס</dt><dd>{new Date(listing.available_from).toLocaleDateString("he-IL")}</dd></div>
+                {listing.contact_email && <div><dt>אימייל</dt><dd><a href={`mailto:${listing.contact_email}`}>{listing.contact_email}</a></dd></div>}
+                {listing.available_from && <div><dt>כניסה לנכס</dt><dd>{new Date(listing.available_from).toLocaleDateString("he-IL")}</dd></div>}
                 <div><dt>נשלחה</dt><dd>{new Date(listing.created_at).toLocaleString("he-IL")}</dd></div>
               </dl>
             </div>
